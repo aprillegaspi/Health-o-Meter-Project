@@ -1,3 +1,4 @@
+import 'package:EfreelApp/BMRCalculator.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'dart:math';
@@ -34,11 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-            child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                children: <Widget>[
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            children: <Widget>[
               SizedBox(height: 60.0),
               Column(
                 children: <Widget>[
@@ -59,42 +60,49 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(height: 128.0),
               pageNum == 1 ? homescreen() : pageNum == 2
-            ])));
+            ]),
+      ),
+    );
   }
 
   Widget homescreen() {
     return Container(
-        child: Container(
-      width: 330.0,
-      height: 430.0,
-      child: Column(children: <Widget>[
-        SizedBox(
+      child: Container(
+        width: 330.0,
+        height: 430.0,
+        child: Column(children: <Widget>[
+          SizedBox(
+              width: 300.0,
+              height: 50.0,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewScreen()),
+                  );
+                },
+                child: Text("BMI CALCULATOR",
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                        fontFamily: 'Schyler',
+                        fontWeight: FontWeight.w300)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: BorderSide(color: Colors.lightBlue)),
+                color: Colors.black,
+              )),
+          SizedBox(height: 25.0),
+          SizedBox(
             width: 300.0,
             height: 50.0,
             child: RaisedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewScreen()),
+                  MaterialPageRoute(builder: (context) => BMRCalculator()),
                 );
               },
-              child: Text("BMI CALCULATOR",
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                      fontFamily: 'Schyler',
-                      fontWeight: FontWeight.w300)),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  side: BorderSide(color: Colors.lightBlue)),
-              color: Colors.black,
-            )),
-        SizedBox(height: 25.0),
-        SizedBox(
-            width: 300.0,
-            height: 50.0,
-            child: RaisedButton(
-              onPressed: () {},
               child: Text("BMR CALCULATOR",
                   style: TextStyle(
                       fontSize: 20.0,
@@ -105,9 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.circular(10.0),
                   side: BorderSide(color: Colors.lightBlue)),
               color: Colors.black,
-            )),
-        SizedBox(height: 25.0),
-        SizedBox(
+            ),
+          ),
+          SizedBox(height: 25.0),
+          SizedBox(
             width: 300.0,
             height: 50.0,
             child: RaisedButton(
@@ -119,12 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontFamily: 'Schyler',
                       fontWeight: FontWeight.w300)),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  side: BorderSide(color: Colors.lightBlue)),
+                borderRadius: BorderRadius.circular(10.0),
+                side: BorderSide(color: Colors.lightBlue),
+              ),
               color: Colors.black,
-            )),
-        SizedBox(height: 25.0),
-        SizedBox(
+            ),
+          ),
+          SizedBox(height: 25.0),
+          SizedBox(
             width: 300.0,
             height: 50.0,
             child: RaisedButton(
@@ -139,9 +150,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.circular(10.0),
                   side: BorderSide(color: Colors.lightBlue)),
               color: Colors.black,
-            )),
-      ]),
-    ));
+            ),
+          ),
+        ]),
+      ),
+    );
   }
 }
 
@@ -149,11 +162,11 @@ class NewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-            child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                children: <Widget>[
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            children: <Widget>[
               SizedBox(height: 60.0),
               Column(
                 children: <Widget>[
@@ -164,12 +177,14 @@ class NewScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 5.0),
-                  Text('HEALTH-O-METER',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontFamily: 'Schyler',
-                          fontWeight: FontWeight.w200)),
+                  Text(
+                    'HEALTH-O-METER',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontFamily: 'Schyler',
+                        fontWeight: FontWeight.w200),
+                  ),
                 ],
               ),
               SizedBox(height: 180.0),
@@ -219,14 +234,16 @@ class NewScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ])));
+            ]),
+      ),
+    );
   }
 }
 
 class BmiHome extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new BMIState();
+    return BMIState();
   }
 }
 
@@ -234,10 +251,11 @@ class BMIState extends State<BmiHome> {
   double _calc;
   String _bmiResult;
   String _status;
+  String _message;
 
-  TextEditingController _ageFieldController = new TextEditingController();
-  TextEditingController _heightFieldController = new TextEditingController();
-  TextEditingController _weightFieldController = new TextEditingController();
+  TextEditingController _ageFieldController = TextEditingController();
+  TextEditingController _heightFieldController = TextEditingController();
+  TextEditingController _weightFieldController = TextEditingController();
 
   void _calculateBMI() {
     double height = double.parse(_heightFieldController.text);
@@ -245,8 +263,7 @@ class BMIState extends State<BmiHome> {
 
     if (height != null && weight != null) {
       setState(() {
-        //height = height * 12;
-        _calc = weight / pow((height / 100), 2);
+        _calc = weight / pow(height / 100, 2);
         _bmiResult = _calc.toStringAsFixed(1);
 
         if (_calc >= 25) {
@@ -258,89 +275,110 @@ class BMIState extends State<BmiHome> {
         }
       });
     }
+    setState(() {
+      _calc = weight / pow(height / 100, 2);
+
+      if (_calc >= 25) {
+        _message = 'You have a higher normal weight. Try to exercise more.';
+      } else if (_calc > 18.5) {
+        _message = 'You have a normal weight. Good Job!';
+      } else {
+        _message =
+            'You have a lower than normal body weight. You can eat a bit more.';
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-          title: Text('HOME',
-              style: TextStyle(
-                  fontFamily: 'Schyler',
-                  fontSize: 25,
-                  fontWeight: FontWeight.w300))),
+        title: Text(
+          'HOME',
+          style: TextStyle(
+              fontFamily: 'Schyler', fontSize: 25, fontWeight: FontWeight.w300),
+        ),
+      ),
       drawer: Theme(
-          data: Theme.of(context).copyWith(canvasColor: Colors.white24),
-          child: Container(
-              width: 200,
-              height: 719,
-              child: Drawer(
-                  child: Container(
-                child: ListView(padding: EdgeInsets.zero, children: <Widget>[
-                  DrawerHeader(
-                    child: Image.asset(
-                      'assets/logo.png',
-                      height: 50.0,
-                      width: 50.0,
-                      fit: BoxFit.fitHeight,
-                    ),
+        data: Theme.of(context).copyWith(canvasColor: Colors.white24),
+        child: Container(
+          width: 200,
+          height: 719,
+          child: Drawer(
+            child: Container(
+              child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+                DrawerHeader(
+                  child: Image.asset(
+                    'assets/logo.png',
+                    height: 50.0,
+                    width: 50.0,
+                    fit: BoxFit.fitHeight,
                   ),
-                  ListTile(
-                      title: Text(
-                        'BMI CALCULATOR',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontFamily: 'Schyler',
-                            fontWeight: FontWeight.w300),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NewScreen(),
-                            ));
-                      }),
-                  ListTile(
-                      title: Text(
-                        'BMR CALCULATOR',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontFamily: 'Schyler',
-                            fontWeight: FontWeight.w300),
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                      }),
-                  ListTile(
-                      title: Text(
-                        'WATER INTAKE',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontFamily: 'Schyler',
-                            fontWeight: FontWeight.w300),
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                      }),
-                  ListTile(
-                      title: Text(
-                        'CALORIE INTAKE',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontFamily: 'Schyler',
-                            fontWeight: FontWeight.w300),
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                      }),
-                ]),
-              )))),
-      body: new ListView(
+                ),
+                ListTile(
+                    title: Text(
+                      'BMI CALCULATOR',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontFamily: 'Schyler',
+                          fontWeight: FontWeight.w300),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewScreen(),
+                        ),
+                      );
+                    }),
+                ListTile(
+                    title: Text(
+                      'BMR CALCULATOR',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontFamily: 'Schyler',
+                          fontWeight: FontWeight.w300),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BMRCalculator()),
+                      );
+                    }),
+                ListTile(
+                    title: Text(
+                      'WATER INTAKE',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontFamily: 'Schyler',
+                          fontWeight: FontWeight.w300),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    }),
+                ListTile(
+                    title: Text(
+                      'CALORIE INTAKE',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontFamily: 'Schyler',
+                          fontWeight: FontWeight.w300),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    }),
+              ]),
+            ),
+          ),
+        ),
+      ),
+      body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         children: <Widget>[
           SizedBox(height: 60.0),
@@ -362,45 +400,45 @@ class BMIState extends State<BmiHome> {
             ],
           ),
           SizedBox(height: 90.0),
-          new Container(
+          Container(
             padding: const EdgeInsets.all(10.0),
-            child: new Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new ToggleSwitch(
-                  minWidth: 70.0,
-                  initialLabelIndex: 1,
-                  cornerRadius: 20.0,
-                  activeFgColor: Colors.white,
-                  inactiveBgColor: Colors.grey,
+                ToggleSwitch(
+                  minWidth: 90.0,
+                  initialLabelIndex: 2,
+                  cornerRadius: 10.0,
+                  activeFgColor: Colors.black,
+                  inactiveBgColor: Colors.black,
                   inactiveFgColor: Colors.white,
                   labels: ['Male', 'Female'],
                   activeBgColors: [Colors.blue, Colors.pink],
                   onToggle: (index) {
                     print('INDEX: $index');
-                    //setState(() {});
                   },
                 ),
                 SizedBox(height: 10.0),
-                new TextField(
+                TextField(
                   controller: _ageFieldController,
                   textAlign: TextAlign.center,
-                  decoration: new InputDecoration(
+                  decoration: InputDecoration(
                       labelText: 'Enter Your Age',
                       filled: true,
                       fillColor: Colors.white24,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
                       hintStyle:
                           TextStyle(color: Colors.white10, fontSize: 20)),
                 ),
                 SizedBox(height: 10.0),
-                new TextField(
+                TextField(
                   controller: _heightFieldController,
                   textAlign: TextAlign.center,
-                  decoration: new InputDecoration(
+                  decoration: InputDecoration(
                       labelText: 'Enter Height in CM',
                       filled: true,
                       fillColor: Colors.white24,
@@ -412,26 +450,27 @@ class BMIState extends State<BmiHome> {
                           TextStyle(color: Colors.white10, fontSize: 20)),
                 ),
                 SizedBox(height: 10.0),
-                new TextField(
+                TextField(
                   controller: _weightFieldController,
                   textAlign: TextAlign.center,
-                  decoration: new InputDecoration(
-                      labelText: 'Enter Weight in KG',
-                      filled: true,
-                      fillColor: Colors.white24,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      hintStyle:
-                          TextStyle(color: Colors.white10, fontSize: 20)),
+                  decoration: InputDecoration(
+                    labelText: 'Enter Weight in KG',
+                    filled: true,
+                    fillColor: Colors.white24,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    hintStyle: TextStyle(color: Colors.white10, fontSize: 20),
+                  ),
                 ),
-                new Padding(padding: const EdgeInsets.all(8)),
-                new RaisedButton(
+                Padding(padding: const EdgeInsets.all(8)),
+                RaisedButton(
                   onPressed: _calculateBMI,
-                  child: new Text(
+                  child: Text(
                     'CALCULATE',
-                    style: new TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
                     ),
@@ -441,26 +480,30 @@ class BMIState extends State<BmiHome> {
                       side: BorderSide(color: Colors.lightBlue)),
                   color: Colors.black,
                   textColor: Colors.white,
-                )
+                ),
               ],
             ),
           ),
-          new Padding(padding: const EdgeInsets.all(5)),
-          new Container(
+          Padding(padding: const EdgeInsets.all(5)),
+          Container(
             alignment: Alignment.topCenter,
-            child: new Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Text(
+                Text(
                   _bmiResult != null ? 'BMI: $_bmiResult' : '',
-                  style: new TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 24.5,
                   ),
                 ),
-                new Text(
+                Text(
                   _status != null ? _status : '',
-                  style: new TextStyle(color: Colors.green, fontSize: 28.0),
+                  style: TextStyle(color: Colors.green, fontSize: 40.0),
+                ),
+                Text(
+                  _message != null ? _message : '',
+                  style: TextStyle(color: Colors.red, fontSize: 24.0),
                 ),
               ],
             ),
