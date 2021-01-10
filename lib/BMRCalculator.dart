@@ -36,6 +36,14 @@ class _BMRCalculatorState extends State<BMRCalculator> {
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
 
+  void clear() {
+    setState(() {
+      ageController.clear();
+      heightController.clear();
+      weightController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,8 +56,8 @@ class _BMRCalculatorState extends State<BMRCalculator> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.settings, color: Colors.black),
+            onPressed: clear,
+            icon: Icon(Icons.autorenew, color: Colors.black),
           ),
         ],
       ),
@@ -88,6 +96,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
               Text(
                 "Enter your Age:",
                 style: TextStyle(
+                  color: Colors.white,
                   fontSize: 15.0,
                 ),
               ),
@@ -100,6 +109,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
                 decoration: InputDecoration(
                   hintText: "Your age",
                   filled: true,
+                  fillColor: Colors.white24,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide.none,
@@ -112,6 +122,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
               Text(
                 "Enter Height in CM:",
                 style: TextStyle(
+                  color: Colors.white,
                   fontSize: 15.0,
                 ),
               ),
@@ -124,6 +135,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
                 decoration: InputDecoration(
                   hintText: "Your height in cm",
                   filled: true,
+                  fillColor: Colors.white24,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide.none,
@@ -136,6 +148,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
               Text(
                 "Enter Weight in KG:",
                 style: TextStyle(
+                  color: Colors.white,
                   fontSize: 15.0,
                 ),
               ),
@@ -148,6 +161,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
                 decoration: InputDecoration(
                   hintText: "Your weight in kg",
                   filled: true,
+                  fillColor: Colors.white24,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide.none,
@@ -173,6 +187,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
                   child: Text(
                     "CALCULATE",
                     style: TextStyle(
+                      color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.w100,
                     ),
@@ -198,7 +213,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
                 ),
               ),
               SizedBox(
-                height: 35.0,
+                height: 20.0,
               ),
               Container(
                 width: double.infinity,
@@ -206,6 +221,7 @@ class _BMRCalculatorState extends State<BMRCalculator> {
                   "$result",
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                    color: Colors.red,
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
                   ),
